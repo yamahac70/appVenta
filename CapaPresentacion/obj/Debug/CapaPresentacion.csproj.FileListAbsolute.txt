@@ -1,0 +1,14 @@
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaPresentacion.exe.config
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaPresentacion.exe
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaPresentacion.pdb
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.csprojResolveAssemblyReference.cache
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.Properties.Resources.resources
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.GenerateResource.Cache
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.exe
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.pdb
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaLogica.dll
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaDatos.dll
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaLogica.pdb
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\bin\Debug\CapaDatos.pdb
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.inicio.resources
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaPresentacion\obj\Debug\CapaPresentacion.login.resources

@@ -1,0 +1,7 @@
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\bin\Debug\CapaLogica.dll
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\bin\Debug\CapaLogica.pdb
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\bin\Debug\CapaDatos.dll
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\bin\Debug\CapaDatos.pdb
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\obj\Debug\CapaLogica.csprojResolveAssemblyReference.cache
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\obj\Debug\CapaLogica.dll
+C:\Users\mja\documents\visual studio 2015\Projects\AppTienda\CapaLogica\obj\Debug\CapaLogica.pdb
