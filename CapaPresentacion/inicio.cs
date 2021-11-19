@@ -17,7 +17,9 @@ namespace CapaPresentacion
         ventanaVenta ventanaVenta = new ventanaVenta();
          logicaNegocio logicadb = new logicaNegocio();
         private int indice = 0;
+        private int cantidadActual;
         private Decimal cantidadAnterior = 0;
+        private int stock;
         public inicio()
         {
             InitializeComponent();
@@ -115,11 +117,14 @@ namespace CapaPresentacion
         private void btnProductos_Click(object sender, EventArgs e)
         {
             tbInicio.SelectedIndex = 0;
+            ventanaProductos.renderProductosdgv(dgvProductos);
         }
 
         private void btnCargarEditarVenta_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(tbNombreCliente.Text);
+            //cargar items
+            logicadb.vender(tbNombreCliente.Text,cbProducto.Text,Convert.ToInt32(nudCantidad.Value),Convert.ToDecimal(tbPrecio.Text), stock);
+            ventanaVenta.renderProductosdgv(dgvVenta);
         }
 
         private void cbCategoriaVentas_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,13 +137,14 @@ namespace CapaPresentacion
             }
             else
             {
-                cbCategoriaVentas.SelectedIndex = 0;
+               // cbProducto.SelectedIndex = cbProducto.SelectedIndex>0 ?cbProducto.SelectedIndex=0:0 ;
                 cbProducto.Text = "";
                 cbProducto.Items.Clear();
-                Console.WriteLine(Convert.ToString(logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem))[0].stock));
+                //Console.WriteLine(Convert.ToString(logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem))[0].precio));
                 for (int i=0;i<cat.Count;i++)
                 {
                     Console.WriteLine(cat[i].nombre);
+                    Console.WriteLine(cat[i].precio);
                     cbProducto.Items.Add(cat[i].nombre);
                     
                 }
@@ -147,28 +153,45 @@ namespace CapaPresentacion
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine(Convert.ToString(logicadb.categoriasTraer("Motor")[0].nombre));
-        }
-
+       
         private void nudCantidad_ValueChanged(object sender, EventArgs e)
         {
-            String categoria= Convert.ToString(cbCategoriaVentas.SelectedItem);
-            int cantidadActual = Convert.ToInt32(nudCantidad.Value);
+            
+             cantidadActual = Convert.ToInt32(nudCantidad.Value);
+            
             if (cantidadAnterior!=0 && cantidadActual!=-1)
             {
-                Console.WriteLine(cbCategoriaVentas.SelectedIndex);
-                Console.WriteLine(Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(categoria)[cbCategoriaVentas.SelectedIndex].precio)* Convert.ToInt32(nudCantidad.Value)));
-                tbPrecio.Text = Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(categoria)[cbCategoriaVentas.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value));
+                String cat = Convert.ToString(cbCategoriaVentas.SelectedItem);
+                stock = Convert.ToInt32(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].stock);
+                Console.WriteLine(cbCategoriaVentas.SelectedIndex+" seleccion");
+               // Console.WriteLine(Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbCategoriaVentas.SelectedIndex].precio)* Convert.ToInt32(nudCantidad.Value)));
+                tbPrecio.Text = Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value));
 
             }
             else
             {
+                String cat = Convert.ToString(cbCategoriaVentas.SelectedItem);
+                stock = Convert.ToInt32(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio);
+                Console.WriteLine(cbCategoriaVentas.SelectedIndex);
+                Console.WriteLine(Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value)));
+                tbPrecio.Text = Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value));
 
             }
             cantidadAnterior = Convert.ToDecimal(cantidadActual);
             
+        }
+
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+            indice = dgvVenta.CurrentRow.Index;
+            Int32 id = Convert.ToInt32(dgvVenta[0, indice].Value);
+            logicadb.eliminarVenta(id);
+            ventanaVenta.renderProductosdgv(dgvVenta);
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
 

@@ -87,13 +87,13 @@ namespace CapaDatos
             List<int> prod = new List<int>();
             tabla = new DataTable();
             comando.Connection = con.abrirConexion();
-            comando.CommandText = $"SELECT * FROM {tablaName} WHERE producto='{producto}'";
+            comando.CommandText = $"SELECT * FROM {tablaName} WHERE nombre='{producto}'";
             leer = comando.ExecuteReader();
             tabla.Load(leer);
             con.cerrarConexion();
             prod.Add(Convert.ToInt32(tabla.Rows[0]["id"]));
             prod.Add(Convert.ToInt32(tabla.Rows[0]["stock"]));
-
+          
             return prod;
 
         }

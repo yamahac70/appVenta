@@ -124,7 +124,11 @@ namespace CapaLogica
             //return datosNegocio.mostrar(categoria);
             // Console.WriteLine($"{datosNegocio.mostrar(categoria)[0].nombre}");
         }
-
+        //eliminar
+        public void eliminarVenta(int id)
+        {
+            datosVenta.eliminar(id);
+        }
         //#########################################################################
         //Traer producto
         public void aniadirProducto(String cuit,String nombre,int stock,Decimal precio,String categoria)
