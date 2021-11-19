@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CapaDatos;
 using System.Data;
+using CapaDatos;
+
 
 namespace CapaLogica
 {
     public class logicaNegocio
     {
+        public struct categoria
+        {
+            public string nombre;
+            public Decimal precio;
+            public int stock;
+        }
 
         private DatosNegocio datosNegocio = new DatosNegocio();
         private datosVentas datosVenta = new datosVentas();
@@ -20,10 +27,12 @@ namespace CapaLogica
         public String NombreUsuario="";
         private DataTable dtVentas;
         DataTable dtProducto;
+        public List<categoria> productos;
+        public categoria objProducto;
 
         public logicaNegocio()
         {
-            
+           /// datosNegocio.stock("");
            // NombreUsuario = "usuario";
           
         }
@@ -33,7 +42,7 @@ namespace CapaLogica
             return usuariosdb.mostrar(usuario, contrasenia);
 
         }
-
+        //#######################################################################
         // Ventas
         public DataTable traerVentas()
         {
@@ -98,10 +107,26 @@ namespace CapaLogica
                id=datosNegocio.stock(producto)[1];
             datosNegocio.actualizarStock(id, stockActual-cantidad);
         }
+        public List<categoria> categoriasTraer(String categoria)
+        {
+            objProducto = new categoria();
+            productos = new List<categoria>();
+            int cta = datosNegocio.mostrar(categoria).Rows.Count;
+            for (int i = 0; i < cta; i++)
+            {
+                objProducto.nombre = Convert.ToString(datosNegocio.mostrar(categoria).Rows[i]["nombre"]);
+                objProducto.precio = Convert.ToDecimal(datosNegocio.mostrar(categoria).Rows[i]["precio"]);
+                objProducto.stock = Convert.ToInt32(datosNegocio.mostrar(categoria).Rows[i]["stock"]);
+                productos.Add(objProducto);
 
+            }
+            return productos;
+            //return datosNegocio.mostrar(categoria);
+            // Console.WriteLine($"{datosNegocio.mostrar(categoria)[0].nombre}");
+        }
 
-
-        //añadir producto
+        //#########################################################################
+        //Traer producto
         public void aniadirProducto(String cuit,String nombre,int stock,Decimal precio,String categoria)
         {
             //añadiremos productos

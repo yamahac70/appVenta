@@ -17,6 +17,7 @@ namespace CapaPresentacion
         ventanaVenta ventanaVenta = new ventanaVenta();
          logicaNegocio logicadb = new logicaNegocio();
         private int indice = 0;
+        private Decimal cantidadAnterior = 0;
         public inicio()
         {
             InitializeComponent();
@@ -32,6 +33,11 @@ namespace CapaPresentacion
             cbCategoriaProducto.Items.Add("Carroceria");
             cbCategoriaProducto.Items.Add("Tren delantero");
             cbCategoriaProducto.Items.Add("Electricidad");
+
+            cbCategoriaVentas.Items.Add("Motor");
+            cbCategoriaVentas.Items.Add("Carroceria");
+            cbCategoriaVentas.Items.Add("Tren delantero");
+            cbCategoriaVentas.Items.Add("Electricidad");
         }
         
         private void tbPrecio_KeyPress(object sender, KeyPressEventArgs e)
@@ -114,6 +120,55 @@ namespace CapaPresentacion
         private void btnCargarEditarVenta_Click(object sender, EventArgs e)
         {
             MessageBox.Show(tbNombreCliente.Text);
+        }
+
+        private void cbCategoriaVentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           var cat= logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem));
+            Console.WriteLine(cbCategoriaVentas.SelectedItem);
+            if (logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem)).Count <= 0 || logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem))[0].stock <= 0) {
+                Console.WriteLine("No stock");
+                cbProducto.Items.Clear();
+            }
+            else
+            {
+                cbCategoriaVentas.SelectedIndex = 0;
+                cbProducto.Text = "";
+                cbProducto.Items.Clear();
+                Console.WriteLine(Convert.ToString(logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem))[0].stock));
+                for (int i=0;i<cat.Count;i++)
+                {
+                    Console.WriteLine(cat[i].nombre);
+                    cbProducto.Items.Add(cat[i].nombre);
+                    
+                }
+                
+            }
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(Convert.ToString(logicadb.categoriasTraer("Motor")[0].nombre));
+        }
+
+        private void nudCantidad_ValueChanged(object sender, EventArgs e)
+        {
+            String categoria= Convert.ToString(cbCategoriaVentas.SelectedItem);
+            int cantidadActual = Convert.ToInt32(nudCantidad.Value);
+            if (cantidadAnterior!=0 && cantidadActual!=-1)
+            {
+                Console.WriteLine(cbCategoriaVentas.SelectedIndex);
+                Console.WriteLine(Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(categoria)[cbCategoriaVentas.SelectedIndex].precio)* Convert.ToInt32(nudCantidad.Value)));
+                tbPrecio.Text = Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(categoria)[cbCategoriaVentas.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value));
+
+            }
+            else
+            {
+
+            }
+            cantidadAnterior = Convert.ToDecimal(cantidadActual);
+            
         }
 
 
