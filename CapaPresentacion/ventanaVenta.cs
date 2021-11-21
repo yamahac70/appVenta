@@ -12,7 +12,7 @@ namespace CapaPresentacion
     class ventanaVenta
     {
         logicaNegocio logicadb = new logicaNegocio();
-        public void renderProductosdgv(DataGridView dgv)
+        public void render(DataGridView dgv)
         {
             dgv.DataSource = "";
             dgv.DataSource = logicadb.traerVentas();

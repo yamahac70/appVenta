@@ -20,6 +20,7 @@ namespace CapaPresentacion
         private int cantidadActual;
         private Decimal cantidadAnterior = 0;
         private int stock;
+        int mEvento = 0,ex,ey;
         public inicio()
         {
             InitializeComponent();
@@ -27,9 +28,9 @@ namespace CapaPresentacion
 
         private void inicio_Load(object sender, EventArgs e)
         {
-            lbUusuario.Text = $"Bienvenido u {logicadb.NombreUsuario}";
+            lbUusuario.Text = $"Bienvenido";
             ventanaProductos.renderProductosdgv(dgvProductos);
-            
+            ventanaVenta.render(dgvVenta);
             tbInicio.SelectedIndex = 2;
             cbCategoriaProducto.Items.Add("Motor");
             cbCategoriaProducto.Items.Add("Carroceria");
@@ -107,11 +108,11 @@ namespace CapaPresentacion
             lbId.Text ="";
             tbCuitProducto.Text = "";
         }
-
+        //pagina de venta 
         private void btnVentas_Click(object sender, EventArgs e)
         {
             tbInicio.SelectedIndex = 1;
-            ventanaVenta.renderProductosdgv(dgvVenta);
+            ventanaVenta.render(dgvVenta);
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
@@ -122,63 +123,41 @@ namespace CapaPresentacion
 
         private void btnCargarEditarVenta_Click(object sender, EventArgs e)
         {
+            
             //cargar items
             logicadb.vender(tbNombreCliente.Text,cbProducto.Text,Convert.ToInt32(nudCantidad.Value),Convert.ToDecimal(tbPrecio.Text), stock);
-            ventanaVenta.renderProductosdgv(dgvVenta);
+            cbProducto.Text = "";
+            tbNombreCliente.Text = "";
+            tbPrecio.Text = "";
+            cbCategoriaVentas.Text = "";
+            ventanaVenta.render(dgvVenta);
         }
 
         private void cbCategoriaVentas_SelectedIndexChanged(object sender, EventArgs e)
         {
            var cat= logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem));
-            Console.WriteLine(cbCategoriaVentas.SelectedItem);
             if (logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem)).Count <= 0 || logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem))[0].stock <= 0) {
                 Console.WriteLine("No stock");
                 cbProducto.Items.Clear();
             }
             else
             {
-               // cbProducto.SelectedIndex = cbProducto.SelectedIndex>0 ?cbProducto.SelectedIndex=0:0 ;
                 cbProducto.Text = "";
                 cbProducto.Items.Clear();
-                //Console.WriteLine(Convert.ToString(logicadb.categoriasTraer(Convert.ToString(cbCategoriaVentas.SelectedItem))[0].precio));
                 for (int i=0;i<cat.Count;i++)
                 {
-                    Console.WriteLine(cat[i].nombre);
-                    Console.WriteLine(cat[i].precio);
                     cbProducto.Items.Add(cat[i].nombre);
-                    
                 }
-                
             }
-            
         }
-
        
         private void nudCantidad_ValueChanged(object sender, EventArgs e)
         {
-            
              cantidadActual = Convert.ToInt32(nudCantidad.Value);
-            
-            if (cantidadAnterior!=0 && cantidadActual!=-1)
-            {
-                String cat = Convert.ToString(cbCategoriaVentas.SelectedItem);
-                stock = Convert.ToInt32(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].stock);
-                Console.WriteLine(cbCategoriaVentas.SelectedIndex+" seleccion");
-               // Console.WriteLine(Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbCategoriaVentas.SelectedIndex].precio)* Convert.ToInt32(nudCantidad.Value)));
-                tbPrecio.Text = Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value));
-
-            }
-            else
-            {
                 String cat = Convert.ToString(cbCategoriaVentas.SelectedItem);
                 stock = Convert.ToInt32(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio);
-                Console.WriteLine(cbCategoriaVentas.SelectedIndex);
-                Console.WriteLine(Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value)));
                 tbPrecio.Text = Convert.ToString(Convert.ToDecimal(logicadb.categoriasTraer(cat)[cbProducto.SelectedIndex].precio) * Convert.ToInt32(nudCantidad.Value));
-
-            }
             cantidadAnterior = Convert.ToDecimal(cantidadActual);
-            
         }
 
         private void btnEliminar_Click_1(object sender, EventArgs e)
@@ -186,7 +165,7 @@ namespace CapaPresentacion
             indice = dgvVenta.CurrentRow.Index;
             Int32 id = Convert.ToInt32(dgvVenta[0, indice].Value);
             logicadb.eliminarVenta(id);
-            ventanaVenta.renderProductosdgv(dgvVenta);
+            ventanaVenta.render(dgvVenta);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -194,8 +173,29 @@ namespace CapaPresentacion
             Application.Exit();
         }
 
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mEvento= 1;
+            ex = e.X;
+            ey = e.Y;
+        }
 
-        //pagina de venta 
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mEvento==1)
+            {
+                this.SetDesktopLocation(MousePosition.X-ex, MousePosition.Y-ey);
+            }
+          
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mEvento = 0;
+        }
+
+
+     
 
 
 

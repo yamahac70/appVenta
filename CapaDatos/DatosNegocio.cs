@@ -42,30 +42,6 @@ namespace CapaDatos
             tabla.Load(leer);
             con.cerrarConexion();
             return tabla;
-/*
-            if (leer.Read())
-            {
-                //con.cerrarConexion();
-                tabla.Load(leer);
-                return tabla;
-            }
-            else
-            {
-                con.cerrarConexion();
-                colum = new DataColumn();
-                DataRow fila;
-                colum.DataType = System.Type.GetType("System.String");
-                colum.ColumnName = "nombre";
-                tabla.Columns.Add(colum);
-                colum = new DataColumn();
-                colum.DataType = System.Type.GetType("System.Decimal");
-                colum.ColumnName = "precio";
-                tabla.Columns.Add(colum);
-                fila = tabla.NewRow();
-                fila["nombre"] = "No existe stock";
-                fila["precio"] = 0;
-                return tabla;
-            }*/
                 
         }
         public void insertar(  string cuit, string nombre, int stock,Decimal precio,String categoria)

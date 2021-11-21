@@ -31,8 +31,7 @@ namespace CapaDatos
         {
             comando.Connection = con.abrirConexion();
             comando.CommandText = $"SELECT * FROM {tablaName} WHERE nombre='{usuario}' AND contrasenia='{contrasenia}'";
-           /* comando.Parameters.AddWithValue("@usuario", usuario);
-            comando.Parameters.AddWithValue("@contrasenia", contrasenia);*/
+           
             leer = comando.ExecuteReader();
             if (leer.Read())
             {
@@ -52,9 +51,6 @@ namespace CapaDatos
         {
             comando.Connection = con.abrirConexion();
             comando.CommandText = $"INSERT INTO {tablaName}(nombre,contrasenia) VALUES('{nombre}','{contrasenia}' )";
-            //comando.Parameters.AddWithValue("@tabla", tablaName);
-            //comando.Parameters.AddWithValue("@nombre", nombre);
-            //comando.Parameters.AddWithValue("@contraseña", contraseña);
             comando.ExecuteNonQuery();
             con.cerrarConexion();
         }
@@ -62,18 +58,13 @@ namespace CapaDatos
         {
             comando.Connection = con.abrirConexion();
             comando.CommandText = $"UPDATE {tablaName} SET nombre='{nombre}' contrasenia='{contrasenia}'  WHERE id='{id}'";
-            /*comando.Parameters.AddWithValue("@tabla", tablaName);
-            comando.Parameters.AddWithValue("@id", id);
-            comando.Parameters.AddWithValue("@nombre", nombre);
-            comando.Parameters.AddWithValue("@contraseña",contraseña);*/
             comando.ExecuteNonQuery();
             con.cerrarConexion();
         }
         public void eliminar(int id)
         {
             comando.Connection = con.abrirConexion();
-            comando.CommandText = "DELETE FROM {tabla} WHERE id = '{id}'";
-            
+            comando.CommandText = $"DELETE FROM {tabla} WHERE id = '{id}'";
             comando.ExecuteNonQuery();
             con.cerrarConexion();
         }

@@ -12,6 +12,9 @@ namespace CapaPresentacion
 {
     public partial class login : Form
     {
+        int mEvento = 0,
+            ex ,
+            ey ;
         private logicaNegocio logica ;
         public login()
         {
@@ -21,7 +24,7 @@ namespace CapaPresentacion
         }
         private void login_Load(object sender, EventArgs e)
         {
-
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -47,6 +50,30 @@ namespace CapaPresentacion
             }
         }
 
-       
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mEvento = 1;
+            ex = e.X;
+            ey = e.Y;
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mEvento == 1)
+            {
+                this.SetDesktopLocation(MousePosition.X - ex, MousePosition.Y - ey);
+            }
+
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mEvento = 0;
+        }
     }
 }

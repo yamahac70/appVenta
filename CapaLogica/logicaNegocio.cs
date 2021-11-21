@@ -21,9 +21,7 @@ namespace CapaLogica
         private DatosNegocio datosNegocio = new DatosNegocio();
         private datosVentas datosVenta = new datosVentas();
         private DatosUsuarios usuariosdb = new DatosUsuarios();
-        private int cantidad;
-        private Decimal precioTotal;
-        private String NombreCliente;
+       
         public String NombreUsuario="";
         private DataTable dtVentas;
         DataTable dtProducto;
@@ -32,8 +30,7 @@ namespace CapaLogica
 
         public logicaNegocio()
         {
-           /// datosNegocio.stock("");
-           // NombreUsuario = "usuario";
+           
           
         }
         public Boolean verificarUsuario(String usuario, String contrasenia)
@@ -94,7 +91,7 @@ namespace CapaLogica
         }
         public void vender(String nombreCliente, String producto, int cantidad, Decimal precio,int stockActual)
         {
-           ;
+           
             //actualizo el stock
             stockDisminuir(producto,cantidad);
             //realizo la carga
@@ -121,8 +118,6 @@ namespace CapaLogica
 
             }
             return productos;
-            //return datosNegocio.mostrar(categoria);
-            // Console.WriteLine($"{datosNegocio.mostrar(categoria)[0].nombre}");
         }
         //eliminar
         public void eliminarVenta(int id)
